@@ -1,0 +1,47 @@
+table, td, th {
+    border:1px solid black;
+}
+
+tbody tr:nth-of-type(odd){
+    background:green;
+}
+
+tbody tr:nth-of-type(even){
+    background:blue;
+}
+
+th {
+    font-weight:bold;
+}
+
+tbody td:first-child {
+    font-style:italic;
+}
+
+.outer-content {
+    margin-right:25%;
+    margin-top:20px;
+    border:solid black 1px;
+    background:pink;
+}
+
+.inner-content {
+    background:blue;
+    margin-left:12.5%;
+    margin-right:12.5%;
+    align-self:center;
+}
+
+.full-width {
+    display:block;
+}
+
+ul.candy {
+    list-style-type:none;
+    list-style-position:inside;
+    padding-left:0;
+
+}
+
+
+
