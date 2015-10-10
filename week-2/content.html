@@ -1,3 +1,9 @@
+<!--
+Name: Dane Schoonover
+Class: CS290
+Assignment: HTML/CSS
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,10 +91,26 @@
     <div class="inner-content">
         <p>content</p>
     </div>
-
 </div>
 
-<form>
+<form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/
+tools/class-content/form_tests/check_request.php" method="GET">
+    <fieldset>
+        <legend>Legend</legend>
+        Text: <input class="full-width" type="text" name="text_input">
+        Number: <input class="full-width" type="number" name="numerical_input">
+        Password: <input class="full-width" type="password" name="password_input">
+        <ul class="candy">
+            <li><input type="radio" name="candy">Snickers</li>
+            <li><input type="radio" name="candy">Skittles</li>
+            <li><input type="radio" name="candy">Mentos</li>
+        </ul>
+        <input type="submit">
+    </fieldset>
+</form>
+
+<form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/
+tools/class-content/form_tests/check_request.php" method="POST">
     <fieldset>
         <legend>Legend</legend>
         Text: <input class="full-width" type="text" name="text_input">
@@ -105,13 +127,3 @@
 
 </body>
 </html>
-
-
-
-
-
-<!--Create two forms. One should submit via a post, the other via a get, they should have identical
-content.-->
-
-<!--They should submit to http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/tools/class-content
-/form_tests/check_request.php to better facilitate testing.-->

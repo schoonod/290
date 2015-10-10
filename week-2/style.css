@@ -19,17 +19,18 @@ tbody td:first-child {
 }
 
 .outer-content {
-    margin-right:25%;
+    width:75%;
     margin-top:20px;
-    border:solid black 1px;
+    border:solid 1px;
     background:pink;
 }
 
 .inner-content {
     background:blue;
-    margin-left:12.5%;
-    margin-right:12.5%;
-    align-self:center;
+    width: 75%;
+    margin:auto;
+    text-align: center;
+    color:white;
 }
 
 .full-width {
@@ -42,6 +43,3 @@ ul.candy {
     padding-left:0;
 
 }
-
-
-
