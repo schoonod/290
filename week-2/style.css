@@ -18,11 +18,12 @@ tbody td:first-child {
     font-style:italic;
 }
 
+
 .outer-content {
     width:75%;
-    margin-top:20px;
-    border:solid 1px;
     background:pink;
+    margin-top:20px;
+    border:solid pink 1px;
 }
 
 .inner-content {
