@@ -78,7 +78,7 @@ function typeComparator(auto1, auto2){
     var str1 = auto1.type.toLowerCase();
     var str2 = auto2.type.toLowerCase();
 
-    var autoMap = ["roadster", "pickup", "suv", "wagon"];
+    var autoMap = ["roadster", "pickup", "suv", "wagon", "sedan"];
 
     // convert the auto type to the index value of the type that it matches to in the autoMap; this allows for int comparison
     for (var i = 0; i < autoMap.length; i++) {
