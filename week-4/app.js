@@ -111,7 +111,6 @@ var typeComp = sortArr(typeComparator, automobiles);
 
 console.log("*****");
 console.log("\nThe cars sorted by year are:");
-
 yearComp.forEach(function(element){
     element.logMe(false);
 });
@@ -120,7 +119,9 @@ console.log("\nThe cars sorted by make are:");
 makeComp.forEach(function(element){
     element.logMe(false);
 });
+
 console.log("\nThe cars sorted by type are:");
 typeComp.forEach(function(element){
     element.logMe(true);
 });
+console.log("*****");
