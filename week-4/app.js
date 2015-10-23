@@ -21,10 +21,6 @@ var autos = automobiles.map(function(element){
     return JSON.parse(JSON.stringify(element));
 });
 
-console.log(autos[0]);
-console.log(autos[0].year);
-
-
 function sortArr(comparator, autos){
     // autos.sort(comparator);
 
@@ -79,26 +75,25 @@ function makeComparator(auto1, auto2){
 }
 
 function typeComparator(auto1, auto2){
-    auto1.type = auto1.type.toLowerCase();
-    auto2.type = auto2.type.toLowerCase();
+    var str1 = auto1.type.toLowerCase();
+    var str2 = auto2.type.toLowerCase();
 
     var autoMap = ["roadster", "pickup", "suv", "wagon"];
 
     // convert the auto type to the index value of the type that it matches to in the autoMap; this allows for int comparison
     for (var i = 0; i < autoMap.length; i++) {
-        if (auto1.type == autoMap[i])
-            auto1.type = i;
-        if (auto2.type == autoMap[i])
-            auto2.type = i;
+        if (str1 == autoMap[i])
+            str1 = i;
+        if (str2 == autoMap[i])
+            str2 = i;
     }
 
     // if they are the same, return the result of comparing them by year
-    if (auto1.type == auto2.type) {
+    if (str1 == str2)
         return yearComparator(auto1, auto2)
-    }
 
     // if they are not the same, return the T/F comparison of their map values
-    return (auto1 > auto2);
+    return (str1 > str2);
 }
 
 Automobile.prototype.logMe = function(bool){
