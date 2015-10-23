@@ -63,9 +63,9 @@ function yearComparator(auto1, auto2){
 
 
 function makeComparator(auto1, auto2){
-    auto1.make = auto1.make.toLowerCase();
-    auto2.make = auto2.make.toLowerCase();
-    return (auto1.make < auto2.make || auto1.make == auto2.make);
+    var str1 = auto1.type.toLowerCase();
+    var str2 = auto2.type.toLowerCase();
+    return (str1 <= str2);
     /* need to touch this up to check all characters */
     /* as is it just checks if first word/first letter is less than second word/first letter */
     /* i.e. Ford/Fiat may not give correct result */
@@ -78,7 +78,8 @@ function typeComparator(auto1, auto2){
     var str1 = auto1.type.toLowerCase();
     var str2 = auto2.type.toLowerCase();
 
-    var autoMap = ["roadster", "pickup", "suv", "wagon", "sedan"];
+    var autoMap = ["sedan", "wagon", "suv", "pickup", "roadster"];
+
 
     // convert the auto type to the index value of the type that it matches to in the autoMap; this allows for int comparison
     for (var i = 0; i < autoMap.length; i++) {
@@ -98,9 +99,7 @@ function typeComparator(auto1, auto2){
 
 Automobile.prototype.logMe = function(bool){
     if(!bool) {
-        console.log(this.year);
-        console.log(this.make);
-        console.log(this.model);
+        console.log(this.year + " " + this.make + " " + this.model);
     } else {
         for (var prop in Automobile) {
             console.log(this.prop);
@@ -116,11 +115,17 @@ var typeComp = sortArr(typeComparator, autos);
 
 console.log("*****");
 console.log("\nThe cars sorted by year are:");
-yearComp.forEach(logMe(false));
+
+for (var i = 0; i < yearComp.length; i++){
+    console.log(yearComp[i]);
+}
+
+
+yearComp.forEach(Automobile.logMe(false));
 
 console.log("\nThe cars sorted by make are:");
-makeComp.forEach(logMe(false));
+makeComp.forEach(Automobile.logMe(false));
 
 console.log("\nThe cars sorted by type are:");
-typeComp.forEach(logMe(true));
+typeComp.forEach(Automobile.logMe(true));
 console.log("*****");
