@@ -21,6 +21,10 @@ var autos = automobiles.map(function(element){
     return JSON.parse(JSON.stringify(element));
 });
 
+console.log(autos[0]);
+console.log(autos[0].year);
+
+
 function sortArr(comparator, autos){
     // autos.sort(comparator);
 
@@ -39,17 +43,17 @@ function sortArr(comparator, autos){
 
     // I think this is a version of the selection sort..I think. I really dunno, I just made some shit up and hope it works..
     while (i < autos.length){
+        // if j has reached the end of the array, all comparisons have been made. advance i and start j over at i+1
+        if (j == (autos.length)) {
+            i++;
+            j = i + 1;
+        }
         // if the comparator confirms that the left value is bigger than the right, move on to next comparison (j)
-        if (comparator(autos[i], autos[j]))
+        else if (comparator(autos[i], autos[j]))
             j++;
         // else right is bigger than left, swap'em
         else
             swap(autos, i, j);
-        // if j has reached the end of the array, all comparisons have been made. advance i and start j over at i+1
-        if (j == autos.length){
-            i++;
-            j = i + 1;
-        }
     }
 
     // return the sorted function
@@ -58,7 +62,7 @@ function sortArr(comparator, autos){
 
 
 function yearComparator(auto1, auto2){
-    return (auto1.year > auto2.year || auto1.year == auto2.year);
+    return auto1.year >= auto2.year;
 }
 
 
@@ -97,8 +101,6 @@ function typeComparator(auto1, auto2){
     return (auto1 > auto2);
 }
 
-
-
 Automobile.prototype.logMe = function(bool){
     if(!bool) {
         console.log(this.year);
@@ -106,9 +108,10 @@ Automobile.prototype.logMe = function(bool){
         console.log(this.model);
     } else {
         for (var prop in Automobile) {
-            console.log(Automobile[prop]);  // <-- need to sort this out. Automobile[prop] is not the right thing
+            console.log(this.prop);
         }
     }
+
 };
 
 var yearComp = sortArr(yearComparator, autos);
