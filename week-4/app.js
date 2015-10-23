@@ -15,16 +15,13 @@ var automobiles = [
 ];
 
 
-// Copy automobiles into a new array object
-// Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
-
-
 function sortArr(comparator, automobiles){
+
+    // Copy automobiles into a new array object
+    // Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
     var autos = automobiles.map(function(element){
         return JSON.parse(JSON.stringify(element));
     });
-
-    // autos.sort(comparator);
 
     // Position of 'greatest'
     var i = 0;
@@ -63,7 +60,6 @@ function yearComparator(auto1, auto2){
     return auto1.year >= auto2.year;
 }
 
-
 function makeComparator(auto1, auto2){
     var str1 = auto1.type.toLowerCase();
     var str2 = auto2.type.toLowerCase();
@@ -72,8 +68,6 @@ function makeComparator(auto1, auto2){
     /* as is it just checks if first word/first letter is less than second word/first letter */
     /* i.e. Ford/Fiat may not give correct result */
     /* pretty sure i have this in a c++ program */
-
-
 }
 
 function typeComparator(auto1, auto2){
@@ -81,7 +75,6 @@ function typeComparator(auto1, auto2){
     var str2 = auto2.type.toLowerCase();
 
     var autoMap = ["sedan", "wagon", "suv", "pickup", "roadster"];
-
 
     // convert the auto type to the index value of the type that it matches to in the autoMap; this allows for int comparison
     for (var i = 0; i < autoMap.length; i++) {
@@ -121,7 +114,17 @@ console.log("\nThe cars sorted by year are:");
 for (var i = 0; i < yearComp.length; i++){
     console.log(yearComp[i]);
 }
+console.log('\n');
 
+for (var i = 0; i < yearComp.length; i++){
+    console.log(makeComp[i]);
+}
+console.log('\n');
+
+for (var i = 0; i < yearComp.length; i++){
+    console.log(typeComp[i]);
+}
+console.log('\n');
 
 yearComp.forEach(Automobile.logMe(false));
 
