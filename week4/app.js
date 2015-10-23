@@ -1,0 +1,128 @@
+function Automobile(year, make, model, type){
+    this.year = year; //integer (ex. 2001, 1995)
+    this.make = make; //string (ex. Honda, Ford)
+    this.model = model; //string (ex. Accord, Focus)
+    this.type = type; //string (ex. Pickup, SUV)
+}
+
+var automobiles = [
+    new Automobile(1995, "Honda", "Accord", "Sedan"),
+    new Automobile(1990, "Ford", "F-150", "Pickup"),
+    new Automobile(2000, "GMC", "Tahoe", "SUV"),
+    new Automobile(2010, "Toyota", "Tacoma", "Pickup"),
+    new Automobile(2005, "Lotus", "Elise", "Roadster"),
+    new Automobile(2008, "Subaru", "Outback", "Wagon")
+];
+
+
+// Copy automobiles into a new array object
+// Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
+var autos = automobiles.map(function(element){
+    return JSON.parse(JSON.stringify(element));
+});
+
+function sortArr(comparator, autos){
+    // autos.sort(comparator);
+
+    // Position of 'greatest'
+    var i = 0;
+    // Position of comparison against 'greatest'
+    var j = i + 1;
+
+    // swaps compared elements
+    function swap(array, left, right){
+        var temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
+
+    }
+
+    // I think this is a version of the selection sort..I think. I really dunno, I just made some shit up and hope it works..
+    while (i < autos.length){
+        // if the comparator confirms that the left value is bigger than the right, move on to next comparison (j)
+        if (comparator(autos[i], autos[j]))
+            j++;
+        // else right is bigger than left, swap'em
+        else
+            swap(autos, i, j);
+        // if j has reached the end of the array, all comparisons have been made. advance i and start j over at i+1
+        if (j == autos.length){
+            i++;
+            j = i + 1;
+        }
+    }
+
+    // return the sorted function
+    return autos;
+}
+
+
+function yearComparator(auto1, auto2){
+    return (auto1.year > auto2.year || auto1.year == auto2.year);
+}
+
+
+function makeComparator(auto1, auto2){
+    auto1.make = auto1.make.toLowerCase();
+    auto2.make = auto2.make.toLowerCase();
+    return (auto1.make < auto2.make || auto1.make == auto2.make);
+    /* need to touch this up to check all characters */
+    /* as is it just checks if first word/first letter is less than second word/first letter */
+    /* i.e. Ford/Fiat may not give correct result */
+    /* pretty sure i have this in a c++ program */
+
+
+}
+
+function typeComparator(auto1, auto2){
+    auto1.type = auto1.type.toLowerCase();
+    auto2.type = auto2.type.toLowerCase();
+
+    var autoMap = ["roadster", "pickup", "suv", "wagon"];
+
+    // convert the auto type to the index value of the type that it matches to in the autoMap; this allows for int comparison
+    for (var i = 0; i < autoMap.length; i++) {
+        if (auto1.type == autoMap[i])
+            auto1.type = i;
+        if (auto2.type == autoMap[i])
+            auto2.type = i;
+    }
+
+    // if they are the same, return the result of comparing them by year
+    if (auto1.type == auto2.type) {
+        return yearComparator(auto1, auto2)
+    }
+
+    // if they are not the same, return the T/F comparison of their map values
+    return (auto1 > auto2);
+}
+
+
+
+Automobile.prototype.logMe = function(bool){
+    if(!bool) {
+        console.log(this.year);
+        console.log(this.make);
+        console.log(this.model);
+    } else {
+        for (var prop in Automobile) {
+            console.log(Automobile[prop]);  // <-- need to sort this out. Automobile[prop] is not the right thing
+        }
+    }
+};
+
+var yearComp = sortArr(yearComparator, autos);
+var makeComp = sortArr(makeComparator, autos);
+var typeComp = sortArr(typeComparator, autos);
+
+
+console.log("*****");
+console.log("\nThe cars sorted by year are:");
+yearComp.forEach(logMe(false));
+
+console.log("\nThe cars sorted by make are:");
+makeComp.forEach(logMe(false));
+
+console.log("\nThe cars sorted by type are:");
+typeComp.forEach(logMe(true));
+console.log("*****");
