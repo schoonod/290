@@ -19,9 +19,13 @@ function sortArr(comparator, automobiles){
 
     // Copy automobiles into a new array object
     // Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
-    var autos = automobiles.map(function(element){
-        return JSON.parse(JSON.stringify(element));
-    });
+    var autos = new Array();
+
+    autos = automobiles;
+
+    //autos = automobiles.map(function(element){
+    //    return JSON.parse(JSON.stringify(element));
+    //});
 
     // Position of 'greatest'
     var i = 0;
@@ -86,20 +90,17 @@ function typeComparator(auto1, auto2){
 
     // if they are the same, return the result of comparing them by year
     if (str1 == str2)
-        return yearComparator(auto1, auto2)
+        return yearComparator(auto1, auto2);
 
     // if they are not the same, return the T/F comparison of their map values
     return (str1 > str2);
 }
 
 Automobile.prototype.logMe = function(bool){
-    if(!bool) {
+    if(!bool)
         console.log(this.year + " " + this.make + " " + this.model);
-    } else {
-        for (var prop in Automobile) {
-            console.log(this.prop);
-        }
-    }
+    else
+        console.log(this.year + " " + this.make + " " + this.model + " " + this.type);
 
 };
 
@@ -111,26 +112,15 @@ var typeComp = sortArr(typeComparator, automobiles);
 console.log("*****");
 console.log("\nThe cars sorted by year are:");
 
-for (var i = 0; i < yearComp.length; i++){
-    console.log(yearComp[i]);
-}
-console.log('\n');
-
-for (var i = 0; i < yearComp.length; i++){
-    console.log(makeComp[i]);
-}
-console.log('\n');
-
-for (var i = 0; i < yearComp.length; i++){
-    console.log(typeComp[i]);
-}
-console.log('\n');
-
-yearComp.forEach(Automobile.logMe(false));
+yearComp.forEach(function(element){
+    element.logMe(false);
+});
 
 console.log("\nThe cars sorted by make are:");
-makeComp.forEach(Automobile.logMe(false));
-
+makeComp.forEach(function(element){
+    element.logMe(false);
+});
 console.log("\nThe cars sorted by type are:");
-typeComp.forEach(Automobile.logMe(true));
-console.log("*****");
+typeComp.forEach(function(element){
+    element.logMe(true);
+});
