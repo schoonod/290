@@ -17,11 +17,13 @@ var automobiles = [
 
 // Copy automobiles into a new array object
 // Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
-var autos = automobiles.map(function(element){
-    return JSON.parse(JSON.stringify(element));
-});
 
-function sortArr(comparator, autos){
+
+function sortArr(comparator, automobiles){
+    var autos = automobiles.map(function(element){
+        return JSON.parse(JSON.stringify(element));
+    });
+
     // autos.sort(comparator);
 
     // Position of 'greatest'
@@ -108,9 +110,9 @@ Automobile.prototype.logMe = function(bool){
 
 };
 
-var yearComp = sortArr(yearComparator, autos);
-var makeComp = sortArr(makeComparator, autos);
-var typeComp = sortArr(typeComparator, autos);
+var yearComp = sortArr(yearComparator, automobiles);
+var makeComp = sortArr(makeComparator, automobiles);
+var typeComp = sortArr(typeComparator, automobiles);
 
 
 console.log("*****");
