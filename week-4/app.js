@@ -19,9 +19,7 @@ function sortArr(comparator, automobiles){
 
     // Copy automobiles into a new array object
     // Citation: https://piazza.com/class/iexadsf9t962en?cid=110 (Josh Homann's deep copy solution)
-    var autos = new Array();
-
-    autos = automobiles;
+    var autos = automobiles;
 
     //autos = automobiles.map(function(element){
     //    return JSON.parse(JSON.stringify(element));
@@ -105,20 +103,19 @@ Automobile.prototype.logMe = function(bool){
 };
 
 var yearComp = sortArr(yearComparator, automobiles);
-var makeComp = sortArr(makeComparator, automobiles);
-var typeComp = sortArr(typeComparator, automobiles);
-
-
 console.log("*****");
 console.log("The cars sorted by year are:");
 yearComp.forEach(function(element){
     element.logMe(false);
 });
 
+var makeComp = sortArr(makeComparator, automobiles);
 console.log("\nThe cars sorted by make are:");
 makeComp.forEach(function(element){
     element.logMe(false);
 });
+
+var typeComp = sortArr(typeComparator, automobiles);
 
 console.log("\nThe cars sorted by type are:");
 typeComp.forEach(function(element){
