@@ -49,8 +49,11 @@ function sortArr(comparator, automobiles){
         else if (comparator(autos[i], autos[j]))
             j++;
         // else right is bigger than left, swap'em
-        else
+        else {
             swap(autos, i, j);
+            j++;
+        }
+
     }
 
     // return the sorted function
@@ -63,13 +66,22 @@ function yearComparator(auto1, auto2){
 }
 
 function makeComparator(auto1, auto2){
-    var str1 = auto1.type.toLowerCase();
-    var str2 = auto2.type.toLowerCase();
-    return (str1 <= str2);
-    /* need to touch this up to check all characters */
-    /* as is it just checks if first word/first letter is less than second word/first letter */
-    /* i.e. Ford/Fiat may not give correct result */
-    /* pretty sure i have this in a c++ program */
+    var str1 = auto1.make.toLowerCase();
+    var str2 = auto2.make.toLowerCase();
+
+    var strLength = function(){
+        if (str1.length <= str2.length)
+            return str1.length;
+        else
+            return str2.length;
+    }();
+    
+    for(var i = 0; i < strLength; i++){
+       if(str1[i] > str2[i])
+        return false
+    }
+
+    return true;
 }
 
 function typeComparator(auto1, auto2){
