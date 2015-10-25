@@ -1,3 +1,8 @@
+// Dane Schoonover
+// CS 290
+// Description: This file sorts and prints an array of Automobile objects by year, make, and type.
+//              The logMe function allows to printing of the sorted array with or without type.
+
 function Automobile(year, make, model, type){
     this.year = year; //integer (ex. 2001, 1995)
     this.make = make; //string (ex. Honda, Ford)
@@ -75,7 +80,7 @@ function makeComparator(auto1, auto2){
         else
             return str2.length;
     }();
-    
+
     for(var i = 0; i < strLength; i++){
        if(str1[i] > str2[i])
         return false
