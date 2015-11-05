@@ -43,7 +43,7 @@ function sortArr(comparator, automobiles){
 
     }
 
-    // I think this is a version of the selection sort..I think. I really dunno, I just made some shit up and hope it works..
+    // I think this is a version of the selection sort..I think.
     while (i < autos.length){
         // if j has reached the end of the array, all comparisons have been made. advance i and start j over at i+1
         if (j == (autos.length)) {
