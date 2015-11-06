@@ -1,3 +1,4 @@
+// Key for Open Weather
 var openWeatherAPIKey = "&APPID=9a15b6a462b0ea3645959ca4a52157f3";
 
 
@@ -7,12 +8,13 @@ function getWeatherAPIParameter(){
     var city = document.getElementsByName('city');
     console.log(zip[0].value);
     console.log(city[0].value);
-    if (zip)
+    if (zip[0].value)
         return "http://api.openweathermap.org/data/2.5/weather?zip=" + zip[0].value;
     else
         return "http://api.openweathermap.org/data/2.5/weather?q=city" + city[0].value;
 }
 
+// Appends weather results with data from http request/response
 function appendWeatherResults(oCity, oTemp, oHumidity){
     (function(){
         for(var i = 0; i < 3; i++)
@@ -28,6 +30,7 @@ function appendWeatherResults(oCity, oTemp, oHumidity){
     paragraphs[2].appendChild(humi);
 }
 
+// Asynch HTTP request
 function request(event){
     var req = new XMLHttpRequest();
     var apiParam = getWeatherAPIParameter();
@@ -46,6 +49,7 @@ function request(event){
     event.preventDefault();
 }
 
+// Add http request to form submit event
 document.getElementById('submit').addEventListener('click', request);
 
 
