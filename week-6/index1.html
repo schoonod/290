@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="styles1.css" >
+    <title>Title</title>
+
+</head>
+<body>
+    <h1>Enter your zip code or city to get current weather:</h1>
+
+
+    <form>
+        <fieldset method="GET">
+            <legend>Location</legend>
+
+            Zip Code: <input class="full-width" type="number" name="zip">
+                <p>or</p>
+
+            City: <input class="full-width" type="text" name="city">
+
+            <input id="submit" type="submit">
+        </fieldset>
+    </form>
+
+<script src="script1.js"></script>
+</body>
+</html>
+
+
+<!--Use the Open Weather Map API to make requests to Open Weather Map to get the weather by zip code. It is fine to hard code -->
+<!--the zip codes in the URL. Then log the output to the console to make sure it is working. If you get a long string of data -->
+<!--that had words like rain or wind then it is working.-->
+
+<!--Update your function that makes calls to Open Weather Map to accept either a zip code or a city and state via a form-->
+<!--(there should be an input for both and depending on which one is used your page should construct the correct URL), add-->
+<!--a button to submit that data and display results in a reasonable way to users. It should at least show the city, current temperature and humidity.-->
+
+
+
+<!--<script>-->
+    <!--var req = new XMLHttpRequest();-->
+    <!--req.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=Corvallis,or&appid=fa7d80c48643dfadde2cced1b1be6ca1");-->
+    <!--req.send(null);-->
+    <!--console.log(JSON.parse(req.responseText));-->
+<!--</script>-->
