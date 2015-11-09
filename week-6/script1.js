@@ -34,8 +34,6 @@ function appendWeatherResults(oCity, oTemp, oHumidity){
 function request(event){
     var req = new XMLHttpRequest();
     var apiParam = getWeatherAPIParameter();
-    console.log(apiParam + openWeatherAPIKey);
-
     req.open('GET', apiParam + openWeatherAPIKey, true);
     req.addEventListener('load',function(event){
         if(req.status >= 200 && req.status < 400) {
