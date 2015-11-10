@@ -3,26 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="styles1.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
     <title>Title</title>
 
 </head>
 <body>
-    <h1>Enter your zip code or city to get current weather:</h1>
+    <h3>Enter your zip code or city to get current weather:</h3>
 
 
-    <form>
+    <form class="">
         <fieldset method="GET">
-            <legend>Location</legend>
-
-            Zip Code: <input class="full-width" type="number" name="zip">
-                <p>or</p>
-
-            City: <input class="full-width" type="text" name="city">
-
+            <legend>Your Location</legend>
+            <div class="input-field">
+              <input id="loc" class="full-width" type="text">
+            </div>
             <input id="submit" type="submit">
         </fieldset>
     </form>
 
-<script src="script1.js"></script>
+    <h4>Weather Data</h4>
+    <div>
+        <ul>
+            <li id="city"></li>
+            <li id="temp"></li>
+            <li id="humi"></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    <script src="script1.js"></script>
 </body>
 </html>
