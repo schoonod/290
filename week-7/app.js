@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 //    res.render('home', randMath());             // .render replaces .send
 //});                                             // can take a second argument to provide dynamic content
 
-app.get('/home',function(req,res){
+app.get('/',function(req,res){
     var qParams = [];
     for (var p in req.query){
         qParams.push({'name':p,'value':req.query[p]})
@@ -31,13 +31,11 @@ app.get('/home',function(req,res){
     res.render('home', context);
 });
 
-app.post('/home', function(req,res){
+app.post('/', function(req,res){
     var qParams = [];
     for (var p in req.body){
         qParams.push({'name':p,'value':req.body[p]})
     }
-    console.log(qParams);
-    console.log(req.body);
     var context = {};
     context.dataList = qParams;
     context.type = "POST";
@@ -60,5 +58,5 @@ app.use(function(err, req, res, next){
 
 // Listen for requests
 app.listen(app.get('port'), function(){
-    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+    console.log('Express started on port' + app.get('port') + '; press Ctrl-C to terminate.');
 });
