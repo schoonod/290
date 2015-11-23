@@ -1,0 +1,22 @@
+<script src="https://maps.googleapis.com/maps/AIzaSyBHJzoNJYElFQbAkGLY1YWzkS4mZdSqdgI/js?key=YOUR_API_KEY&callback=initMap"></script>
+
+
+<h1>Hello {{name}} Here are your places to visit</h1>
+<h2>You have {{toVisitCount}} places to visit.</h2>
+<form method="post">
+    <input type="text" id="toVisitName" name="name">
+    <input type="submit" value="Add Location" name="Add Location" >
+</form>
+{{#if toVisit}}
+    <ul>
+        {{#each toVisit}}
+            <li>
+                <h3>{{this.name}}</h3>
+                <form method="post">
+                    <input type="hidden" name="id" value="{{this.id}}">
+                    <input type="submit" name="Visited" value="Mark as Visited">
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+{{/if}}
