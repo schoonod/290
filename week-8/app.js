@@ -59,6 +59,10 @@ app.post('/',function(req,res){
     // If they click the 'Add Location' button
     // MAPS API probably goes here
     if(req.body['Add Location']){
+        //map = new google.maps.Map(document.getElementById('map'), {
+        //    center: {lat: -34.397, lng: 150.644},
+        //    zoom: 8
+        //});
         req.session.toVisit.push({"name":req.body.name, "id":req.session.curId});
         req.session.curId++;
     }

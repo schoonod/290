@@ -1,5 +1,6 @@
-<script src="https://maps.googleapis.com/maps/AIzaSyBHJzoNJYElFQbAkGLY1YWzkS4mZdSqdgI/js?key=YOUR_API_KEY&callback=initMap"></script>
-
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHJzoNJYElFQbAkGLY1YWzkS4mZdSqdgI&callback=initMap">
+</script>
 
 <h1>Hello {{name}} Here are your places to visit</h1>
 <h2>You have {{toVisitCount}} places to visit.</h2>
@@ -12,6 +13,7 @@
         {{#each toVisit}}
             <li>
                 <h3>{{this.name}}</h3>
+                <div id="map" style="width:500px;height:500px;"></div>
                 <form method="post">
                     <input type="hidden" name="id" value="{{this.id}}">
                     <input type="submit" name="Visited" value="Mark as Visited">
