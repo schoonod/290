@@ -1,7 +1,3 @@
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHJzoNJYElFQbAkGLY1YWzkS4mZdSqdgI&callback=initMap">
-</script>
-
 <h1>Hello {{name}} Here are your places to visit</h1>
 <h2>You have {{toVisitCount}} places to visit.</h2>
 <form method="post">
@@ -13,7 +9,9 @@
         {{#each toVisit}}
             <li>
                 <h3>{{this.name}}</h3>
-                <div id="map" style="width:500px;height:500px;"></div>
+
+                <!--dynamically make id's for this div in the javascript-->
+                <div class="map" style="width:220px;height:150px;"></div>
                 <form method="post">
                     <input type="hidden" name="id" value="{{this.id}}">
                     <input type="submit" name="Visited" value="Mark as Visited">
@@ -22,3 +20,33 @@
         {{/each}}
     </ul>
 {{/if}}
+
+<script type="text/javascript">
+    function initMaps() {
+        var maps = document.getElementsByClassName("map");
+        function initMap(value, index, mapDivArray){
+            var map = new google.maps.Map(mapDivArray[index], {     // mapDivArray[index] should be a node
+                center: {lat: -34.397, lng: 150.644},               // these are just options for the Map constructor
+                zoom: 8                                             // more options
+            });
+        }
+        Array.prototype.forEach.call(maps, initMap);
+    }
+
+//function initMap() {
+//    var maps = document.getElementsByClassName("map");
+//    for(var i = 0; i < maps.length; i++) {
+//        var map = new google.maps.Map(maps[i], {
+//            center: {lat: -34.397, lng: 150.644},
+//            zoom: 8
+//        });
+//    }
+//}
+
+
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHJzoNJYElFQbAkGLY1YWzkS4mZdSqdgI&callback=initMap">
+</script>
+
