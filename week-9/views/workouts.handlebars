@@ -3,7 +3,7 @@
     <!-- Exercise Input Form -->
     <form action='/insert' method='get' id='exForm'>
         <label for='submit-name'>Name:</label>
-        <input type='text' id='submit-name' name='name'>
+        <input type='text' id='submit-name' name='name' autocomplete='off'>
 
         <label for='submit-reps'>Reps</label>
         <input type='number' id='submit-reps' name='reps'>
@@ -14,18 +14,18 @@
         <label for='submit-date'>Date</label>
         <input type='date' id='submit-date' name='date'>
         <p>
-            <input name='units' type='radio' id='submit-lbs'/>
+            <input name='lbs' type='radio' id='submit-lbs'/>
             <label for='submit-lbs'>lbs</label>
         </p>
         <p>
-            <input name='units' type='radio' id='submit-kgs'/>
+            <input name='lbs' type='radio' id='submit-kgs'/>
             <label for='submit-kgs'>kgs</label>
         </p>
         <input type='submit' id='add-exercise' class='btn waves-effect waves-light'>
     </form>
 
     <!-- Empty Table on page load -->
-    <table>
+    <table id='exercise-table' class='highlight responsive-table'>
         <thead>
             <tr>
                 <th>Name</th>
@@ -44,19 +44,20 @@
 <script>
     //// Convenience variables ////
     var addExercise = document.getElementById('add-exercise');
+    var table = document.getElementById('exercise-table');
 
     //// Create DOM definitions ////
     // Returns a single row with 5 cells
     // Id is the id designated for the new row once added to the DB
-    var tableRowInit = function(id, name, reps, weight, date, units){
+    var tableRowInit = function(id, name, reps, weight, date, lbs){
         var row = document.createElement("tr");
-        row.className = "row";
-        row.id = "row" + id;
+        row.className = 'row';
+        row.id = 'row' + ' ' + id;
 
         // Fill the cells with DB query info
         for (var c = 0; c < 5; c++) {
             var cell = document.createElement('td');
-            switch (i) {
+            switch (c) {
                 case 0:
                     cell.textContent = name;
                     cell.id = row.id + ' ' + 'name';
@@ -82,9 +83,17 @@
                     row.appendChild(cell);
                     break;
                 case 4:
-                    cell.textContent = units;
-                    cell.id = row.id + ' ' + 'units';
-                    cell.className = 'units';
+                    if (lbs){
+                        cell.textContent = 'lbs';
+                        cell.className = 'lbs';
+                        cell.id = row.id + ' ' + 'lbs';
+                    }
+
+                    else {
+                        cell.textContent = 'kgs';
+                        cell.className = 'kgs';
+                        cell.id = row.id + ' ' + 'kgs';
+                    }
                     row.appendChild(cell);
                     break;
             }
@@ -101,40 +110,45 @@
         hideEdit.name = 'id';
         hideEdit.value = id;
 
-        var editB = docuemnt.createElement('input');
-        editB.type= 'submit';
-        editB.name = 'edit';
-        editB.value = 'Edit';
+        var edit = document.createElement('input');
+        edit.type= 'submit';
+        edit.name = 'edit';
+        edit.value = 'Edit';
+        edit.onclick = editExerciseClick();
 
         form.appendChild(hideEdit);
-        form.appendChild(editB);
+        form.appendChild(edit);
 
         return form;
     };
 
 
-    // Returns a delete button form
-    var deleteButtonInit = function(id){
+    // Returns a remove button form
+    var removeButtonInit = function(id){
         var form = document.createElement('form');
 
-        var hideDelete = document.createElement('input');
-        hideDelete.type = 'hidden';
-        hideDelete.name = 'id';
-        hideDelete.value = id;
+        var hideRemove = document.createElement('input');
+        hideRemove.type = 'hidden';
+        hideRemove.name = 'id';
+        hideRemove.value = id;
 
-        var deleteB = docuemnt.createElement('input');
-        deleteB.type= 'submit';
-        deleteB.name = 'delete';
-        deleteB.value = 'Delete';
+        var remove = document.createElement('input');
+        remove.type= 'submit';
+        remove.name = 'remove';
+        remove.value = 'Delete';
+        remove.onclick = removeExerciseClick();
 
-        form.appendChild(hideDelete);
-        form.appendChild(deleteB);
+        form.appendChild(hideRemove);
+        form.appendChild(remove);
 
         return form;
     };
 
 
     //// Helper Functions ////
+    function addRowDataToTable(queryResponse){
+
+    }
 
 
     //// Event Handlers ////
@@ -144,29 +158,30 @@
         var reps = document.getElementById('submit-reps').value;
         var weight = document.getElementById('submit-weight').value;
         var date = document.getElementById('submit-date').value;
-        var units = document.getElementsByName('units');
-        // Units should be an array of radio button objects; confirm this
-        if (units[0].value == 'checked')
-            units = document.getElementById('lbs').value;
+        var lbs = document.getElementsByName('lbs');
+
+        // Lbs or Kgs
+        if (lbs[0].checked)
+            lbs = 1;    // unit is in lbs
         else
-            units = document.getElementById('kgs').value;
-
-        // What the user entered
-        console.log('this1');
-        console.log(name, reps, weight, date, units);
-        console.log('this2');
-
+            lbs = 0;    // unit is in kgs
 
         // AJAX call to DB
         var req = new XMLHttpRequest();
-        req.open("GET", 'http://52.88.212.193:3000/insert?name=' + name + '&reps=' + reps + '&weight='
-                + weight + '&date=' + date + '&lbs=' + units, true);
+        req.open("GET", 'http://52.88.212.193:3000/insert?name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&lbs=' + lbs, true);
         req.addEventListener('load', function () {
             if (req.status >= 200 && req.status < 400) {
-                console.log(req.rows);
-                var response = JSON.parse(req.rows);
                 // What we got back
-                console.log(response.name);
+                var res = JSON.parse(req.responseText);
+                console.log(res);
+
+                // id, name, reps, weight, date, lbs
+                var row = tableRowInit(res[0].id, res[0].name, res[0].reps, res[0].weight, res[0].date, res[0].lbs);
+                var edit = editButtonInit(res[0].id);
+                var remove = removeButtonInit(res[0].id);
+                row.appendChild(edit);
+                row.appendChild(remove);
+                table.appendChild(row);
 
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -176,6 +191,25 @@
         event.preventDefault();
     }
 
+    function editExerciseClick(){}
+    function removeExerciseClick(){}
+
     //// Event Listeners ////
+
+    // Add an exercise
     addExercise.addEventListener('click', addExerciseClick);
+
+
+
+    // Highlight the table rows
+    $("table").delegate('td','mouseover mouseleave', function(e) {
+        if (e.type == 'mouseover') {
+            $(this).parent().addClass("hover");
+            $("colgroup").eq($(this).index()).addClass("hover");
+        }
+        else {
+            $(this).parent().removeClass("hover");
+            $("colgroup").eq($(this).index()).removeClass("hover");
+        }
+    });
 </script>
