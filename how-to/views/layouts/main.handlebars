@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Page</title>
+    <!-- Stylehseet -->
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styles.css">
+
+    <!-- Minified Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Materialize Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <!-- Materialize Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <!-- Materialize Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <!-- Script -->
+    <script type="text/javascript" src="/javascript/script.js"></script>
+
+    <!-- Header font -->
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <div class="row valign-wrapper red lighten-2 white-text z-depth-1">
+                <h1 class="col s12 valign-wrapper title"><img id="icon" class="circle" src="/images/symbol4.png">The Dude teaches how to use Handlebars.js partials
+                </h1>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m2 l1 top-space">
+            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
+            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
+            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
+            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
+        </div>
+        {{{body}}}
+    </div>
+</div>
+</body>
+</html>

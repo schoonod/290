@@ -1,0 +1,126 @@
+.fixed {
+    position:fixed;
+}
+
+body {
+    background: url("/images/square.png");
+    position: absolute;
+    z-index: -1;
+    height:100%;
+    width:100%;
+}
+
+.container {
+    background-color:white;
+    position:relative;
+    top:7.5vh;
+    box-shadow: 0 5px 7px 0 rgba(0,0,0,0.16),0 10px 14px 0 rgba(0,0,0,0.12);
+}
+
+.title {
+    font-family: 'Poiret One', cursive;
+    height: 8vh;
+    font-size: 3.3vw;
+    justify-content: center;
+    text-align: center;
+}
+
+.title:hover {
+
+}
+
+#icon {
+    width: 7vh;
+    margin-right:3vw;
+    background-color: transparent;
+    padding:0;
+    float:right;
+    -webkit-filter:
+            drop-shadow(1px 1px 0px #1976d2)
+            drop-shadow(2px 2px 0px #1976d2)
+            drop-shadow(3px 3px 0px #1976d2);
+    transition: transform .2s;
+}
+
+
+#icon:hover {
+    -webkit-filter:
+            drop-shadow(1px 1px 0px red)
+            drop-shadow(2px 2px 0px red)
+            drop-shadow(3px 3px 0px red)
+            drop-shadow(4px 4px 0px white)
+            drop-shadow(5px 5px 0px #1976d2);
+    transform: rotate(360deg);
+}
+
+.heading {
+    font-family: 'Poiret One', cursive;
+    font-size: 3.5vh;
+    font-weight: bold;
+    margin-top:0;
+    margin-left: 1vw;
+}
+
+.nav-link-button, .nav-link-button:visited {
+    color: white;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    min-height: 4vh;
+}
+
+
+.nav-link-button {
+    background-color: #ee6e73;
+    margin: 1vh 0;
+}
+
+.nav-link-button:hover {
+    background-color: #4db6ac;
+    color: white;
+    box-shadow: 0 5px 7px 0 rgba(0,0,0,0.16),0 10px 14px 0 rgba(0,0,0,0.12);
+
+}
+
+
+.block {
+    display: block;
+}
+
+.content {
+    margin-left: 2.7vw;
+    margin-top: 2.7vh;
+    padding-left: 2rem;
+    border-left: 1px dotted #ee6e73;
+}
+
+.top-space {
+    margin-top:5vh;
+    position:relative;
+}
+
+.code-block {
+    background: #ee6e73;
+    color: white;
+    font-family: monospace;
+    font-size: 85%;
+    padding: 3vh;
+    box-shadow: inset 0 0 7px black;
+}
+
+.code-span {
+    background: #e0e2e4;
+    color: brown;
+    font-family: monospace;
+    font-size: 80%;
+}
+
+.block-top-margin {
+    margin-top: 2.6vh;
+}
+
+.next-button {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
