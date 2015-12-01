@@ -1,1 +1,15 @@
-.hover { background-color: #eee; }
+.hover {
+    background-color: #eee;
+}
+
+.edit {
+    width:50%;
+    color:white;
+    margin:2px;
+}
+
+.remove {
+    width:50%;
+    color:white;
+    margin:2px;
+}
