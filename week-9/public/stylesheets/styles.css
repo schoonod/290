@@ -2,14 +2,25 @@
     background-color: #eee;
 }
 
+td {
+    width:9.5vw;
+}
+
 .edit {
-    width:50%;
+    width:40%;
     color:white;
     margin:2px;
+    justify-content: center;
+    text-align: center;
+    float:left;
 }
 
 .remove {
-    width:50%;
+    width:40%;
     color:white;
     margin:2px;
+    justify-content: center;
+    text-align: center;
+    float:right
 }
+
