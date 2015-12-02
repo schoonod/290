@@ -9,12 +9,11 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.get('/reset-table', function (req, res, next) {
-    var context = {};
+app.get('/', function(req, res, next){
     mysql.pool.query("DROP TABLE IF EXISTS workout", function (err) {
         var createString = "CREATE TABLE workout(" +
                 "id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -24,26 +23,28 @@ app.get('/reset-table', function (req, res, next) {
                 "date DATE," +
                 "lbs BOOLEAN)";
         mysql.pool.query(createString, function (err) {
-            context.results = "Table reset";
             res.render('workouts');
         });
     });
 });
 
-app.get('/workout', function (req, res) {
-    var context = {};
-    res.render('workouts', context);
-});
+//app.get('/workout', function (req, res) {
+//    var context = {};
+//    res.render('workouts', context);
+//});
 
 
-app.get('/insert', function (req, res, next) {
-    var context = {};
-    mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",  [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs], function (err, result) {
+//app.get('/insert', function (req, res, next) {
+app.post('/', function(req, res, next){
+    console.log('BODY IS ************************************************************************');
+    console.log(req.body);
+    mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
+        [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
         if (err) {
             next(err);
             return;
         }
-
+        console.log('query select successful');
         var newRowId = result.insertId;
 
         // Send back what was inserted
@@ -53,39 +54,39 @@ app.get('/insert', function (req, res, next) {
                 next(err);
                 return;
             }
-
+            console.log('query select successful');
             context = rows;
             res.send(context);
         });
     });
 });
 
-app.get('/', function (req, res, next) {
-    var context = {};
-    mysql.pool.query('SELECT * FROM workout', function (err, rows, fields) {
-        if (err) {
-            next(err);
-            return;
-        }
-        context.results = JSON.stringify(rows);
-        console.log(context.results);
-        res.send(context);
-    });
-});
+//app.get('/', function (req, res, next) {
+//    var context = {};
+//    mysql.pool.query('SELECT * FROM workout', function (err, rows, fields) {
+//        if (err) {
+//            next(err);
+//            return;
+//        }
+//        context.results = JSON.stringify(rows);
+//        console.log(context.results);
+//        res.send(context);
+//    });
+//});
 
-app.get('/simple-update', function (req, res, next) {
-    var context = {};
-    mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
-        [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs, req.query.id],
-        function (err, result) {
-            if (err) {
-                next(err);
-                return;
-            }
-            context.results = "Updated " + result.changedRows + " rows.";
-            res.render('home', context);
-        });
-});
+//app.get('/simple-update', function (req, res, next) {
+//    var context = {};
+//    mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
+//        [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs, req.query.id],
+//        function (err, result) {
+//            if (err) {
+//                next(err);
+//                return;
+//            }
+//            context.results = "Updated " + result.changedRows + " rows.";
+//            res.render('home', context);
+//        });
+//});
 
 //check for 404 error
 app.use(function (req, res) {
@@ -102,6 +103,6 @@ app.use(function (err, req, res, next) {
 });
 
 //output affirmative to node console
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function (){
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });

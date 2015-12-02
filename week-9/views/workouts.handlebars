@@ -1,7 +1,7 @@
 <div class='container'>
     <h1>Etzercise.</h1>
     <!-- Exercise Input Form -->
-    <form action='/insert' method='get' id='exForm'>
+    <form method='post' id='exForm'>
         <label for='submit-name'>Name:</label>
         <input type='text' id='submit-name' name='name' autocomplete='off'>
 
@@ -24,8 +24,10 @@
         <input type='submit' id='add-exercise' class='btn waves-effect waves-light'>
     </form>
 
+    <h4>Your exercise tracker:</h4>
+
     <!-- Empty Table on page load -->
-    <table id='exercise-table' class='highlight responsive-table'>
+    <table id='exercise-table'>
         <thead>
             <tr>
                 <th>Name</th>
@@ -170,17 +172,19 @@
 
         // AJAX call to DB
         var req = new XMLHttpRequest();
-        req.open("GET", 'http://52.88.212.193:3000/insert?name=' + name + '&reps=' + reps + '&weight=' + weight + '&date=' + date + '&lbs=' + lbs, true);
+        var payload = {name:name, reps:reps, weight:weight, date:date, lbs:lbs};
+        req.open('POST', '/', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+//        req.setRequestHeader('Content-Type', 'application/javascript');
         req.addEventListener('load', function () {
             if (req.status >= 200 && req.status < 400) {
-                // What we got back
-                var res = JSON.parse(req.responseText);
-                console.log(res);
-
                 // id, name, reps, weight, date, lbs
-                var row = tableRowInit(res[0].id, res[0].name, res[0].reps, res[0].weight, res[0].date, res[0].lbs);
-                var edit = editButtonInit(res[0].id);
-                var remove = removeButtonInit(res[0].id);
+                console.log("response successful");
+                var response = JSON.parse(req.responseText);
+                var row = tableRowInit(response[0].id, response[0].name, response[0].reps, response[0].weight, response[0].date, response[0].lbs);
+//                var row = tableRowInit(res[0].id, res[0].name, res[0].reps, res[0].weight, res[0].date, res[0].lbs);
+                var edit = editButtonInit(response[0].id);
+                var remove = removeButtonInit(response[0].id);
                 row.appendChild(edit);
                 row.appendChild(remove);
                 table.appendChild(row);
@@ -189,12 +193,22 @@
                 console.log("Error in network request: " + req.statusText);
             }
         });
-        req.send(null);
+        req.send(JSON.stringify(payload));
+//        req.send(payload);
+
+        console.log("request sent");
         event.preventDefault();
     }
 
-    function editExerciseClick(){}
-    function removeExerciseClick(){}
+    function editExerciseClick(){
+        // get target ID
+    }
+    function removeExerciseClick(){
+        // send AJAX call to server with the row ID
+        // on response
+            // loop thru table to match table row to query id
+            // table.removeChild
+    }
 
     //// Event Listeners ////
 
