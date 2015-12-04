@@ -7,7 +7,7 @@ var app = express();
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3000);
+app.set('port', 3001);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,13 +28,6 @@ app.get('/', function(req, res, next){
     });
 });
 
-//app.get('/workout', function (req, res) {
-//    var context = {};
-//    res.render('workouts', context);
-//});
-
-
-//app.get('/insert', function (req, res, next) {
 app.post('/', function(req, res, next){
     console.log('BODY IS ************************************************************************');
     console.log(req.body);
