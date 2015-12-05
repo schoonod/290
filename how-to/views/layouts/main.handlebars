@@ -28,7 +28,8 @@
     <nav>
         <div class="nav-wrapper">
             <div class="row valign-wrapper red lighten-2 white-text z-depth-1">
-                <h1 class="col s12 valign-wrapper title"><img id="icon" class="circle" src="/images/symbol4.png">The Dude teaches how to use Handlebars.js partials
+                <h1 class="col s12 valign-wrapper title"><a href="/"><img id="icon" class="circle" src="/images/symbol4.png"></a>
+                    The Dude teaches how to use Handlebars.js partials
                 </h1>
             </div>
         </div>
@@ -39,10 +40,20 @@
 <div class="container">
     <div class="row">
         <div class="col s12 m2 l1 top-space">
-            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
-            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
-            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
-            <a class="col s3 m12 valign-wrapper nav-link-button" href="/">link</a>
+            <!--<a class="col s3 m12 valign-wrapper nav-link-button" href="/">Home</a>-->
+            <!--<a class="col s3 m12 valign-wrapper nav-link-button" href="makePartial">Step 1</a>-->
+            <!--<a class="col s3 m12 valign-wrapper nav-link-button" href="context">Step 2</a>-->
+            <!--<a class="col s3 m12 valign-wrapper nav-link-button" href="hotswap">Step 3</a>-->
+            <div id='custom1' class="fixed-action-btn hide-on-small-only">
+                <a class="btn-floating btn-large red" href="#"><i class="large material-icons">web</i></a>
+                <ul id="custom2">
+                    <li><a class="btn-floating purple" href="/"><i class="material-icons">view_week</i></a></li>
+                    <li><a class="btn-floating orange accent-4" href="makePartial"><i class="material-icons">view_stream</i></a></li>
+                    <li><a class="btn-floating cyan lighten-3" href="context"><i class="material-icons">view_quilt</i></a></li>
+                    <!--<li><a class="btn-floating blue"><i class="material-icons">grade</i></a></li>-->
+                </ul>
+            </div>
+
         </div>
         {{{body}}}
     </div>

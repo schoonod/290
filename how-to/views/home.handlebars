@@ -1,15 +1,21 @@
-<div class="col s12 m10 l11">
-    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space ">What this is.</h4>
+<ul id="fixed-pagination" class="pagination hide-on-med-and-down">
+    <li class="active"><a href="/"><button class="button">1</button></a></li>
+    <li class="waves-effect"><a href="makePartial"><button>2</button></a></li>
+    <li class="waves-effect"><a href="context"><button>3</button></a></li>
+</ul>
+
+    <div class="col s12 m10 l10">
+    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space ">What this is</h4>
     <section class="content flow-text">
         {{page1.paragraph1}}
     </section>
 
-    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space">Who its for.</h4>
+    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space">Who its for</h4>
     <section class="content flow-text">
         {{page1.paragraph2}}
     </section>
 
-    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space">What partials are.</h4>
+    <h4 class="teal-text text-darken-2 valign-wrapper heading top-space">What partials are</h4>
     <section class="content flow-text">
         {{page1.paragraph3}}
     </section>
@@ -56,8 +62,13 @@
         {{{page1.paragraph7}}}
     </section>
 
-    <a class="col l2 push-l9 s12 waves-effect waves-light btn-large next-button" href="createParital.handlebars">Next</a>
+    <img src="/images/partialConcept.png" class="content-image"/>
+
+    <section class="content flow-text">
+        {{{page1.paragraph8}}}
+    </section>
+
+    <a id='next' class="col l2 push-l9 s12 waves-effect waves-light btn-large next-button" href='makePartial'>Next</a>
 
     <div class="empty-block"></div>
-
 </div>

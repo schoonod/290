@@ -67,6 +67,7 @@ body {
     justify-content: center;
     text-align: center;
     min-height: 4vh;
+    border-radius: 1vw;
 }
 
 
@@ -122,5 +123,51 @@ body {
 .next-button {
     margin-top: 5vh;
     margin-bottom: 5vh;
+    display: block;
 }
 
+.content-image {
+    display:block;
+    margin: 3vh auto;
+    width:100%;
+}
+
+.empty-block {
+    height: 1vh;
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+}
+
+.fixed-action-btn {
+    position: fixed;
+}
+
+#custom1 {
+    right: inherit;;
+    bottom: inherit;
+    padding-top: inherit;
+    left: 15vw;
+    top: 18vh;
+    position:fixed;
+}
+
+#custom2 {
+    text-align: left;
+    position: relative;
+    bottom: 0;
+    margin-top: 2vh;
+    margin-left: .35vw;
+
+}
+
+#fixed-pagination {
+    position: absolute;
+    top: 4.5vh;
+    right: 2vw;
+    z-index: 1;
+}
+
+button {
+    background-color: transparent;
+    border:none;
+}
