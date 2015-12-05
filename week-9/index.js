@@ -29,29 +29,31 @@ app.get('/', function(req, res, next){
 });
 
 app.post('/', function(req, res, next){
-    console.log('BODY IS ************************************************************************');
-    console.log(req.body);
-    mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
-        [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
-        if (err) {
-            next(err);
-            return;
-        }
-        console.log('query select successful');
-        var newRowId = result.insertId;
-
-        // Send back what was inserted
-        mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
-            // rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+    if(req.body['Add Exercise']){
+        mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
+            [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
             if (err) {
                 next(err);
                 return;
             }
             console.log('query select successful');
-            context = rows;
-            res.send(context);
+            var newRowId = result.insertId;
+
+            // Send back what was inserted
+            mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
+                // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+                if (err) {
+                    next(err);
+                    return;
+                }
+                console.log('query select successful');
+                context = rows;
+                res.send(context);
+            });
         });
-    });
+    }
+
+
 });
 
 //app.get('/', function (req, res, next) {
