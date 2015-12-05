@@ -21,7 +21,7 @@
             <input name='lbs' type='radio' id='submit-kgs'/>
             <label for='submit-kgs'>kgs</label>
         </p>
-        <input type='submit' id='add-exercise' class='btn waves-effect waves-light'>
+        <input type='submit' id='add-exercise' name='Add Exercise' class='btn waves-effect waves-light'>
     </form>
 
     <h4>Your exercise tracker:</h4>
@@ -148,7 +148,6 @@
         return form;
     };
 
-
     //// Helper Functions ////
     function addRowDataToTable(queryResponse){
 
@@ -175,46 +174,46 @@
         var payload = {name:name, reps:reps, weight:weight, date:date, lbs:lbs};
         req.open('POST', '/', true);
         req.setRequestHeader('Content-Type', 'application/json');
-//        req.setRequestHeader('Content-Type', 'application/javascript');
         req.addEventListener('load', function () {
             if (req.status >= 200 && req.status < 400) {
                 // id, name, reps, weight, date, lbs
                 console.log("response successful");
                 var response = JSON.parse(req.responseText);
                 var row = tableRowInit(response[0].id, response[0].name, response[0].reps, response[0].weight, response[0].date, response[0].lbs);
-//                var row = tableRowInit(res[0].id, res[0].name, res[0].reps, res[0].weight, res[0].date, res[0].lbs);
                 var edit = editButtonInit(response[0].id);
                 var remove = removeButtonInit(response[0].id);
                 row.appendChild(edit);
                 row.appendChild(remove);
                 table.appendChild(row);
-
             } else {
                 console.log("Error in network request: " + req.statusText);
             }
         });
         req.send(JSON.stringify(payload));
-//        req.send(payload);
-
         console.log("request sent");
         event.preventDefault();
     }
 
+//    function removeExerciseClick(){
+//        var req = new XMLHttpRequest();
+//        var payload =;
+//
+////        if(req.body['Done']){
+////            req.session.toDo = req.session.toDo.filter(function(e){
+////                return e.id != req.body.id;
+////            })
+////        }
+//    }
+
+
     function editExerciseClick(){
         // get target ID
-    }
-    function removeExerciseClick(){
-        // send AJAX call to server with the row ID
-        // on response
-            // loop thru table to match table row to query id
-            // table.removeChild
     }
 
     //// Event Listeners ////
 
     // Add an exercise
     addExercise.addEventListener('click', addExerciseClick);
-
 
 
     // Highlight the table rows

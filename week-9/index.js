@@ -7,7 +7,7 @@ var app = express();
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3000);
+app.set('port', 3001);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,37 +28,32 @@ app.get('/', function(req, res, next){
     });
 });
 
-//app.get('/workout', function (req, res) {
-//    var context = {};
-//    res.render('workouts', context);
-//});
-
-
-//app.get('/insert', function (req, res, next) {
 app.post('/', function(req, res, next){
-    console.log('BODY IS ************************************************************************');
-    console.log(req.body);
-    mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
-        [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
-        if (err) {
-            next(err);
-            return;
-        }
-        console.log('query select successful');
-        var newRowId = result.insertId;
-
-        // Send back what was inserted
-        mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
-            // rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+    if(req.body['Add Exercise']){
+        mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
+            [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
             if (err) {
                 next(err);
                 return;
             }
             console.log('query select successful');
-            context = rows;
-            res.send(context);
+            var newRowId = result.insertId;
+
+            // Send back what was inserted
+            mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
+                // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+                if (err) {
+                    next(err);
+                    return;
+                }
+                console.log('query select successful');
+                context = rows;
+                res.send(context);
+            });
         });
-    });
+    }
+
+
 });
 
 //app.get('/', function (req, res, next) {

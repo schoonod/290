@@ -43,7 +43,7 @@ app.post('/',function(req,res){
     // A new session would render toVisit.handlebars, which would return a body
     // parameter of 'New List' after the user submits form
     if(req.body['New List']){
-        req.session.name = req.body.username;
+        req.session.name = req.body.name;
         req.session.toVisit = [];
         req.session.curId = 0;
     }
