@@ -1,9 +1,9 @@
 <div class='container'>
     <h1>Etzercise.</h1>
     <!-- Exercise Input Form -->
-    <form method='post' id='exForm'>
+    <form id='exForm'>
         <label for='submit-name'>Name:</label>
-        <input type='text' id='submit-name' name='name' autocomplete='off'>
+        <input value="cheese" type='text' id='submit-name' name='name' autocomplete='off'>
 
         <label for='submit-reps'>Reps</label>
         <input type='number' id='submit-reps' name='reps'>
@@ -54,7 +54,7 @@
     var tableRowInit = function(id, name, reps, weight, date, lbs){
         var row = document.createElement("tr");
         row.className = 'row';
-        row.id = 'row' + ' ' + id;
+        row.id = 'row' + id;
 
         // Fill the cells with DB query info
         for (var c = 0; c < 5; c++) {
@@ -106,17 +106,20 @@
     // Returns an edit button form
     var editButtonInit = function(id){
         var form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/edit';
 
         var hideEdit = document.createElement('input');
         hideEdit.type = 'hidden';
         hideEdit.name = 'id';
         hideEdit.value = id;
+        hideEdit.id = 'hideEdit';
 
         var edit = document.createElement('input');
         edit.type= 'submit';
         edit.name = 'edit';
         edit.value = 'Edit';
-        edit.onclick = editExerciseClick();
+        edit.onclick = editExerciseClick;
         edit.className = 'btn waves-effect waves-light blue lighten-3 edit';
 
         form.appendChild(hideEdit);
@@ -134,12 +137,13 @@
         hideRemove.type = 'hidden';
         hideRemove.name = 'id';
         hideRemove.value = id;
+        hideRemove.id = 'hideRemove';
 
         var remove = document.createElement('input');
-        remove.type= 'submit';
+        remove.type = 'submit';
         remove.name = 'remove';
         remove.value = 'Delete';
-        remove.onclick = removeExerciseClick();
+        remove.onclick = removeExerciseClick;
         remove.className = 'btn waves-effect waves-light red lighten-3 remove';
 
         form.appendChild(hideRemove);
@@ -171,13 +175,13 @@
 
         // AJAX call to DB
         var req = new XMLHttpRequest();
-        var payload = {name:name, reps:reps, weight:weight, date:date, lbs:lbs};
+        var payload = {name:name, reps:reps, weight:weight, date:date, lbs:lbs, addExercises:1};
         req.open('POST', '/', true);
         req.setRequestHeader('Content-Type', 'application/json');
         req.addEventListener('load', function () {
             if (req.status >= 200 && req.status < 400) {
                 // id, name, reps, weight, date, lbs
-                console.log("response successful");
+                console.log("Add Exercise successful");
                 var response = JSON.parse(req.responseText);
                 var row = tableRowInit(response[0].id, response[0].name, response[0].reps, response[0].weight, response[0].date, response[0].lbs);
                 var edit = editButtonInit(response[0].id);
@@ -190,24 +194,38 @@
             }
         });
         req.send(JSON.stringify(payload));
-        console.log("request sent");
+        console.log("Add Exercise sent");
         event.preventDefault();
     }
 
-//    function removeExerciseClick(){
-//        var req = new XMLHttpRequest();
-//        var payload =;
-//
-////        if(req.body['Done']){
-////            req.session.toDo = req.session.toDo.filter(function(e){
-////                return e.id != req.body.id;
-////            })
-////        }
-//    }
-
+    function removeExerciseClick(){
+        var remove = document.getElementById('hideRemove');
+        var row = document.getElementById('row' + remove.value);
+        var payload = {id:remove.value, removeExercise:1};                        // value contains row id from mysql database
+        var req = new XMLHttpRequest();
+        req.open('POST', '/', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.addEventListener('load', function () {
+            if (req.status >= 200 && req.status < 400) {
+                console.log("Remove Exercise successful");
+                var response = JSON.parse(req.responseText);
+                row.parentNode.removeChild(row);
+            } else {
+                console.log("Error in network request: " + req.statusText);
+            }
+        });
+        req.send(JSON.stringify(payload));
+        console.log("Remove Exercise sent");
+        event.preventDefault();
+    }
 
     function editExerciseClick(){
-        // get target ID
+        var req = new XMLHttpRequest();
+        req.open('POST', '/edit', true);
+        req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        req.send(null);
+        console.log("Going edit page");
+//        event.preventDefault();
     }
 
     //// Event Listeners ////

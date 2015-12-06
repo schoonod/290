@@ -9,7 +9,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3001);
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
@@ -22,21 +22,32 @@ app.get('/', function(req, res, next){
                 "weight INT," +
                 "date DATE," +
                 "lbs BOOLEAN)";
+        console.log('table dropped');
         mysql.pool.query(createString, function (err) {
             res.render('workouts');
         });
     });
 });
 
+app.post('/edit', function(req,res, next){
+    console.log("Edit server hit");
+    res.render('edit');
+    console.log("Edit server hit2");
+});
+
+app.get('/workouts', function(req,res){
+    res.render('workouts');
+});
+
 app.post('/', function(req, res, next){
-    if(req.body['Add Exercise']){
+    if(req.body['addExercises']){
         mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
             [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
             if (err) {
                 next(err);
                 return;
             }
-            console.log('query select successful');
+            console.log('query add successful');
             var newRowId = result.insertId;
 
             // Send back what was inserted
@@ -53,9 +64,34 @@ app.post('/', function(req, res, next){
         });
     }
 
+    if(req.body['removeExercise']){
+    //var createString = "DELETE FROM workout WHERE id=" + [req.body.id];
+        var context = {};
+        mysql.pool.query("DELETE FROM workout WHERE id=?", [req.body.id], function (err, result) {
+            if (err)
+            //{
+                next(err);
+                //return;
+            //}
+            res.send(context);
 
+            //console.log('query remove successful');
+            //var newRowId = result.insertId;
+            //
+            //// Send back what was inserted
+            //mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
+            //    // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+            //    if (err) {
+            //        next(err);
+            //        return;
+            //    }
+            //    console.log('query select successful');
+            //    context = rows;
+            //    res.send(context);
+            //});
+        });
+    }
 });
-
 //app.get('/', function (req, res, next) {
 //    var context = {};
 //    mysql.pool.query('SELECT * FROM workout', function (err, rows, fields) {
