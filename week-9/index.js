@@ -30,9 +30,16 @@ app.get('/', function(req, res, next){
 });
 
 app.post('/edit', function(req,res, next){
-    console.log("Edit server hit");
-    res.render('edit');
-    console.log("Edit server hit2");
+    mysql.pool.query('SELECT * FROM workout WHERE id=?', [req.body.id], function(err, rows, fields) {
+        // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
+        if (err) {
+            next(err);
+            return;
+        }
+        console.log('query select successful');
+        context = rows;
+        res.render('edit', context);
+    });
 });
 
 app.get('/workouts', function(req,res){

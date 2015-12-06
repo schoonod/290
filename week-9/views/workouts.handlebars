@@ -220,6 +220,8 @@
     }
 
     function editExerciseClick(){
+        var edit = document.getElementById('hideEdit');
+        var payload = {id:edit.value}
         var req = new XMLHttpRequest();
         req.open('POST', '/edit', true);
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
