@@ -38,16 +38,22 @@
             </tr>
         </thead>
 
-        <tbody></tbody>
+        <tbody>
+        {{#each dataList}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.reps}}</td>
+                <td>{{this.weight}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.units}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
     </table>
 </div>
 
 
 <script>
-    document.addEventListener('load', function(){
-
-    }
-
     //// Convenience variables ////
     var addExercise = document.getElementById('add-exercise');
     var table = document.getElementById('exercise-table');

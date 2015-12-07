@@ -118,11 +118,22 @@ app.post('/', function(req, res, next){
         });
     }
 
-   if(req.body['new-name']){
+    if(req.body['new-name']){
+        var context = {};
+
         mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs, req.body.id], function (err, result) {
             if (err)
                 next(err);
-            res.render('workouts');
+
+            // Send back what was inserted
+            mysql.pool.query('SELECT * FROM workout', function(err, rows, fields) {
+                if (err)
+                    next(err);
+                console.log('ROWS select successful');
+                context.dataList = rows;
+                console.log(context.dataList);
+                res.render('workouts', context);
+            });
         });
     }
 });
