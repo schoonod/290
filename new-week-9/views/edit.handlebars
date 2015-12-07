@@ -1,42 +1,38 @@
 <div class='container'>
     <h1>Please edit your exercise.</h1>
-    <!-- Exercise Input Form -->
-    <form id='exForm' action='/' method='post'>
-        <input type='hidden' id='hideEdit' value='id' name='{{id}}'>
-
+    <form method='post' action='/' id='exForm'>
         <label for='submit-name'>Name:</label>
-        <input type='text' id='submit-name' name='new-name' autocomplete='off' value="{{name}}">
+        <input type='text' id='submit-name' name='name' autocomplete='off' value="{{name}}">
 
         <label for='submit-reps'>Reps</label>
-        <input type='number' id='submit-reps' name='reps' value="{{reps}}">
+        <input type='number' id='submit-reps' name='reps' value="{{this.reps}}">
 
         <label for='submit-weight'>Weight</label>
-        <input type='number' id='submit-weight' name='weight' value="{{weight}}">
+        <input type='number' id='submit-weight' name='weight' value="{{this.weight}}">
 
         <label for='submit-date'>Date</label>
-        <input type='date' id='submit-date' name='date' value="{{date}}">
-        {{#if lbs}}
-            <p>
-                <input name='lbs' type='radio' id='submit-lbs' checked="{{this.lbs}}"/>
-                <label for='submit-lbs'>lbs</label>
-            </p>
-            <p>
-                <input name='lbs' type='radio' id='submit-kgs' />
-                <label for='submit-kgs'>kgs</label>
-            </p>
-        {{else}}
-            <p>
-                <input name='lbs' type='radio' id='submit-lbs'/>
-                <label for='submit-lbs'>lbs</label>
-            </p>
+        <input type='date' id='submit-date' name='date' value="{{this.date}}">
+        {{#if this.lbs}}
             <p>
                 <input name='lbs' type='radio' id='submit-kgs' checked="{{this.lbs}}"/>
                 <label for='submit-kgs'>kgs</label>
             </p>
+            <p>
+                <input name='lbs' type='radio' id='submit-lbs'/>
+                <label for='submit-lbs'>lbs</label>
+            </p>
+        {{else}}
+            <p>
+                <input name='lbs' type='radio' id='submit-kgs' />
+                <label for='submit-kgs'>kgs</label>
+            </p>
+            <p>
+                <input name='lbs' type='radio' id='submit-lbs'checked="{{this.lbs}}"/>
+                <label for='submit-lbs'>lbs</label>
+            </p>
         {{/if}}
+        <input type='hidden' name='id'  id='hideId' value='{{this.id}}'>
         <input type='submit' id='edit-exercise' name='Edit Exercise' class='btn waves-effect waves-light'>
-
-        <a href="workouts">Workouts</a>
     </form>
 </div>
 

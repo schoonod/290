@@ -29,29 +29,6 @@ app.get('/reset', function(req, res, next){
     });
 });
 
-//app.post('/', function(req, res, next){
-//    mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
-//                if (err)
-//                    next(err);
-//                res.render('workouts');
-//    });
-//
-//});
-
-
-//app.post('/edit', function(req,res, next){
-//    mysql.pool.query('SELECT * FROM workout WHERE id=?', [req.body.id], function(err, rows, fields) {
-//        // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
-//        if (err) {
-//            next(err);
-//            return;
-//        }
-//        console.log('query select successful');
-//        context = rows;
-//        res.render('edit', context);
-//    });
-//});
-
 app.get('/edit',function(req,res) {
     var context = {};
     var id;
@@ -66,7 +43,6 @@ app.get('/edit',function(req,res) {
             next(err);
             return;
         }
-
         context.id = rows[0].id;
         context.name = rows[0].name;
         context.reps = rows[0].reps;
@@ -83,7 +59,8 @@ app.get('/workouts', function(req,res){
     res.render('workouts');
 });
 
-app.post('/', function(req, res, next){
+
+app.post('/', function(req, res, next) {
     if(req.body['addExercises']){
         mysql.pool.query("INSERT INTO workout (`name`,`reps`,`weight`,`date`,`lbs`) VALUES (?,?,?,?,?)",
             [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function (err, result) {
@@ -91,17 +68,13 @@ app.post('/', function(req, res, next){
                 next(err);
                 return;
             }
-            console.log('query add successful');
             var newRowId = result.insertId;
 
-            // Send back what was inserted
             mysql.pool.query('SELECT * FROM workout WHERE id=?', [newRowId], function(err, rows, fields) {
-                // Rows contains an array of objects. Those objects have key/value pairs corresponding to the column/row pairings
                 if (err) {
                     next(err);
                     return;
                 }
-                console.log('query select successful');
                 context = rows;
                 res.send(context);
             });
@@ -114,22 +87,19 @@ app.post('/', function(req, res, next){
             if (err)
                 next(err);
             res.send(context);
-
         });
     }
 
-    if(req.body['new-name']){
+    if(req.body['Edit Exercise']){
         var context = {};
-
-        mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs, req.body.id], function (err, result) {
+        mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?",
+            [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs, req.body.id], function (err, result) {
             if (err)
                 next(err);
-
-            // Send back what was inserted
+            console.log("changed rows are " + result.changedRows);
             mysql.pool.query('SELECT * FROM workout', function(err, rows, fields) {
                 if (err)
                     next(err);
-                console.log('ROWS select successful');
                 context.dataList = rows;
                 console.log(context.dataList);
                 res.render('workouts', context);
@@ -137,20 +107,6 @@ app.post('/', function(req, res, next){
         });
     }
 });
-
-//app.get('/simple-update', function (req, res, next) {
-//    var context = {};
-//    mysql.pool.query("UPDATE workout SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=? ",
-//        [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs, req.query.id],
-//        function (err, result) {
-//            if (err) {
-//                next(err);
-//                return;
-//            }
-//            context.results = "Updated " + result.changedRows + " rows.";
-//            res.render('home', context);
-//        });
-//});
 
 //check for 404 error
 app.use(function (req, res) {

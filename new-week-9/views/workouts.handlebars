@@ -27,7 +27,8 @@
     <h4>Your exercise tracker:</h4>
 
     <!-- Empty Table on page load -->
-    <table id='exercise-table'>
+
+<table id='exercise-table'>
         <thead>
             <tr>
                 <th>Name</th>
@@ -46,6 +47,14 @@
                 <td>{{this.weight}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.units}}</td>
+                <!--<td>-->
+                    <!--<input type='hidden' name='id' value='{{this.id}}' id='hideEdit' form='my_form1'>-->
+                    <!--<input type='submit' name='edit' value='edit' class='btn waves-effect waves-light blue lighten-3 edit'form='my_form1'>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<input type='hidden' name='id' value='{{this.id}}' id='hideRemove' form='my_form2'>-->
+                    <!--<input type='submit' name='remove' value='Delete' onclick='removeExerciseClick()' class='btn waves-effect waves-light blue lighten-3 edit' form='my_form2'>-->
+                <!--</td>-->
             </tr>
         {{/each}}
         </tbody>
@@ -162,10 +171,15 @@
         return form;
     };
 
-    //// Helper Functions ////
-    function addRowDataToTable(queryResponse){
-
-    }
+//    window.addEventListener('load', function(event){
+//        var table = document.getElementsByTagName('table');
+//        for(var i = 0; i < table.rows.length; i++){
+//            var edit = editButtonInit(dataList[i].id);
+//            var remove = removeButtonInit(dataList[i].id);
+//            table.appendChild(edit);
+//            table.appendChild(remove);
+//        }
+//    });
 
 
     //// Event Handlers ////
@@ -186,14 +200,11 @@
         // AJAX call to DB
         var req = new XMLHttpRequest();
         var payload = {name:name, reps:reps, weight:weight, date:date, lbs:lbs, addExercises:1};
-//        console.log(date);
         req.open('POST', '/', true);
         req.setRequestHeader('Content-Type', 'application/json');
         req.addEventListener('load', function () {
             if (req.status >= 200 && req.status < 400) {
-                // id, name, reps, weight, date, lbs
                 console.log("Add Exercise successful");
-//                console.log(req.responseText[0].date);
                 var response = JSON.parse(req.responseText);
                 var row = tableRowInit(response[0].id, response[0].name, response[0].reps, response[0].weight, response[0].date, response[0].lbs);
                 var edit = editButtonInit(response[0].id);
@@ -213,7 +224,7 @@
     function removeExerciseClick(){
         var remove = document.getElementById('hideRemove');
         var row = document.getElementById('row' + remove.value);
-        var payload = {id:remove.value, removeExercise:1};                        // value contains row id from mysql database
+        var payload = {id:remove.value, removeExercise:1};
         var req = new XMLHttpRequest();
         req.open('POST', '/', true);
         req.setRequestHeader('Content-Type', 'application/json');
@@ -232,18 +243,17 @@
     }
 
     function editExerciseClick(){
-//        var edit = document.getElementById('hideEdit');
-//        var payload = {id:edit.value};
+//    var edit = document.getElementById('hideEdit');
+//        var payload = {id:edit.value, editExercise:1};
 //        var req = new XMLHttpRequest();
-//        req.open('POST', '/edit', true);
-//        req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//        req.send(null);
+//        req.open('POST', '/', true);
+//        req.setRequestHeader('Content-Type', 'application/json');
+//        req.send(JSON.stringify(payload));
 //        console.log("Going edit page");
-//        event.preventDefault();
+//        event.preventDefault();t();
     }
 
     //// Event Listeners ////
-
     // Add an exercise
     addExercise.addEventListener('click', addExerciseClick);
 
